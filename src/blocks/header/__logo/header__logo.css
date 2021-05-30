@@ -1,0 +1,9 @@
+.header__logo {
+  display: block;
+  width: calc(6.79% + 82px);
+  transition: .15s linear;
+}
+
+.header__logo:hover {
+  opacity: .6;
+}
