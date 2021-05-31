@@ -1,13 +1,21 @@
 import React from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
+
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
-import api from '../utils/api';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
+import Login from './Login';
+import Register from './Register';
+import ProtectedRoute from './ProtectedRoute';
+import InfoTooltip from './InfoTooltip';
+
+import api from '../utils/api';
+
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
 function App() {
@@ -16,8 +24,9 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(false);
-  const [currentUser, setCurrentUser] = React.useState({name: 'Жак-Ив Кусто', about: 'Исследователь'});
+  const [currentUser, setCurrentUser] = React.useState({ name: 'Жак-Ив Кусто', about: 'Исследователь' });
   const [cards, setCards] = React.useState([]);
+  const [loggedIn, setLoggedIn] = React.useState(true);
 
   // Загрузка сохраненных данных о пользователе + карточках с сервера
   React.useEffect(() => {
@@ -80,7 +89,6 @@ function App() {
   }
 
   function handleUpdateAvatar(avatar) {
-    console.log(avatar)
     api.editAvatarPhoto(avatar)
       .then(userData => {
         setCurrentUser(userData);
@@ -96,21 +104,45 @@ function App() {
       }).catch(err => console.error(err));
 
   }
-
+  // -----------------------------------------------------------------------------------------------------------------------------
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <div className="container">
           <Header />
-          <Main onEditAvatar={handleEditAvatarClick}
-            onEditProfile={handleEditProfileClick}
-            onAddPlace={handleAddPlaceClick}
-            onCardClick={handleCardClick}
-            cards={cards}
-            onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
-          />
-          <Footer />
+          <Switch>
+            <ProtectedRoute exact path='/'
+              loggedIn={loggedIn}
+              component={Main}
+              onEditAvatar={handleEditAvatarClick}
+              onEditProfile={handleEditProfileClick}
+              onAddPlace={handleAddPlaceClick}
+              onCardClick={handleCardClick}
+              cards={cards}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
+            />
+
+            {/* Footer перенесен в Main */}
+            {/* <ProtectedRoute exact path='/'
+              loggedIn={loggedIn}
+              component={Footer}
+            /> */}
+
+            <Route path='/sign-in'>
+              <Login />
+            </Route>
+            <Route path='/sign-up'>
+              <Register />
+            </Route>
+            <Route path='/'>
+              {loggedIn ? (
+                <Redirect to="/" />
+              ) : (
+                <Redirect to="/sign-up" />
+              )}
+            </Route>
+          </Switch>
 
           {/* Попап - редактировать профиль */}
           <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
@@ -125,6 +157,9 @@ function App() {
 
           {/* <!-- Попап - Показать картинку --> */}
           <ImagePopup onClose={closeAllPopups} card={selectedCard} />
+
+          {/* Попап модального окна,который информирует пользователя об успешной */}
+          <InfoTooltip />
         </div>
       </div>
     </CurrentUserContext.Provider>

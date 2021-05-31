@@ -6,6 +6,7 @@ function Header() {
       <a className="header__logo" href="https://learn.javascript.ru/" target="_self">
         <img className="header__img" src={logo} alt="Логотип. Место." />
       </a>
+      <a className='header__link'>Регистрация</a>
     </header>
   );
 }
