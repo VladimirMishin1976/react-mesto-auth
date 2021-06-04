@@ -1,13 +1,10 @@
-import successSign from '../images/success.svg';
-import unSuccessSign from '../images/unsuccess.svg';
-
-function InfoTooltip() {
+function InfoTooltip({ image, text, isOpen, onClose }) {
   return (
-    <div className='popup'>
+    <div className={`popup ${isOpen ? 'popup_opened' : ''}`}>
       <div className='popup__container popup__container_place_info-tool'>
-        <img className='info-tool__img' alt='Знак успешно' src={unSuccessSign} />
-        <h2 className=" popup__title popup__title_type_center">Вы успешно зарегистрировались!</h2>
-        <button className="popup__close popup__close_profile" type="button" aria-label="Закрыть" onClick='{onClose}'></button>
+        <img className='info-tool__img' alt={text} src={image} />
+        <h2 className=" popup__title popup__title_type_center">{text}</h2>
+        <button className="popup__close popup__close_profile" type="button" aria-label="Закрыть" onClick={onClose}></button>
       </div>
     </div >
   )

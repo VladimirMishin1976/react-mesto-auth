@@ -1,9 +1,15 @@
 .header__logo {
   display: block;
-  width: calc(6.79% + 82px);
+  width: 142px;
   transition: .15s linear;
 }
 
 .header__logo:hover {
   opacity: .6;
+}
+
+@media screen and (max-width: 500px) {
+  .header__logo {
+    width: 104px;
+  }
 }
