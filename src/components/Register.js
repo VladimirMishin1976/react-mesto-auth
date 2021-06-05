@@ -35,4 +35,4 @@ function Register({ handleRegister }) {
   );
 }
 
-export default Register;
+export default Register;  

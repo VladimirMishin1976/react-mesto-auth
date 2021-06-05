@@ -16,8 +16,12 @@
   cursor: pointer;
 }
 
-
-
 .form__button:hover {
   opacity: .8;
+}
+
+@media screen and (max-width: 500px) {
+  .form__button {
+    margin-top: 140px;
+  }
 }

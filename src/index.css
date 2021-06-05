@@ -53,6 +53,7 @@
 @import url(./blocks/popup/__input/popup__input.css);
 @import url(./blocks/popup/__save/popup__save.css);
 @import url(./blocks/popup/__close/popup__close.css);
+@import url(./blocks/popup/__close/_type_center/popup__close_type_center.css);
 @import url(./blocks/popup/_type/popup_type_image.css);
 @import url(./blocks/popup/__img-container/popup__img-container.css);
 @import url(./blocks/popup/__img-caption/popup__img-caption.css);
@@ -71,3 +72,12 @@
 @import url(./blocks/form/__input/form__input.css);
 @import url(./blocks/form/__button/form__button.css);
 @import url(./blocks/form/__link/form__link.css);
+
+/* Временно убрать скролл */
+html::-webkit-scrollbar {
+  width: 0;
+  /* ширина для вертикального скролла */
+  height: 8px;
+  /* высота для горизонтального скролла */
+  background-color: #143861;
+}
