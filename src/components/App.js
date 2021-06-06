@@ -27,7 +27,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({link: '', name: ''});
+  const [selectedCard, setSelectedCard] = React.useState({ link: '', name: '' });
   const [currentUser, setCurrentUser] = React.useState({ name: 'Жак-Ив Кусто', about: 'Исследователь' });
   const [cards, setCards] = React.useState([]);
   // Начальное состояние  loggedIn = null - для блокировки начального появления окна регистрации
@@ -171,7 +171,7 @@ function App() {
     history.push('/signin');
     setUserData({ _id: '', email: '' });
   }
-// если токен есть - при загрузке блокируется кратковременное появление окна регистрации
+  // если токен есть - при загрузке блокируется кратковременное появление окна регистрации
   if (loggedIn === null) {
     return (
       <Header userData={userData} handleLogOut={handleLogOut} />
@@ -183,7 +183,11 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <div className="container">
-          <Header userData={userData} handleLogOut={handleLogOut} />
+          <Header
+            userData={userData}
+            handleLogOut={handleLogOut}
+            loggedIn={loggedIn} />
+
           <Switch>
             <ProtectedRoute exact path='/'
               loggedIn={loggedIn}
@@ -212,7 +216,7 @@ function App() {
             </Route>
           </Switch>
 
-          <Footer />          
+          <Footer />
 
           {/* Попап - редактировать профиль */}
           <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
