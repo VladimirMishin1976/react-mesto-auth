@@ -15,7 +15,7 @@ import InfoTooltip from './InfoTooltip';
 
 import api from '../utils/api';
 
-import * as auth from '../auth';
+import * as auth from '../utils/auth';
 
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 // изображения для попапа статуса регистрации/авторизации
@@ -27,9 +27,10 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({link: '', name: ''});
   const [currentUser, setCurrentUser] = React.useState({ name: 'Жак-Ив Кусто', about: 'Исследователь' });
   const [cards, setCards] = React.useState([]);
+  // Начальное состояние  loggedIn = null - для блокировки начального появления окна регистрации
   const [loggedIn, setLoggedIn] = React.useState(null);
   const [userData, setUserData] = React.useState({ _id: '', email: '' });
   const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = React.useState(false);
@@ -111,7 +112,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
-    setSelectedCard(false);
+    setSelectedCard({ image: '', text: '' });
     setIsInfoTooltipPopupOpen(false);
   }
   // Авторизация
@@ -211,10 +212,7 @@ function App() {
             </Route>
           </Switch>
 
-          <ProtectedRoute exact path='/'
-            loggedIn={loggedIn}
-            component={Footer}
-          />
+          <Footer />          
 
           {/* Попап - редактировать профиль */}
           <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />

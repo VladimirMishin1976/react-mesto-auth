@@ -9,16 +9,21 @@ function Header({ userData, handleLogOut }) {
         <img className="header__img" src={logo} alt="Логотип. Место." />
       </a>
       <Route path='/signup'>
-      <p className='header__email'>{userData.email}</p>
+        <p className='header__email'>{userData.email}</p>
         <Link className='header__auth-link' to='/signin'>Войти</Link>
       </Route>
       <Route path='/signin'>
-      <p className='header__email'>{userData.email}</p>
+        <p className='header__email'>{userData.email}</p>
         <Link className='header__auth-link' to='/signup'>Регистрация</Link>
       </Route>
       <Route exact path='/'>
-        <p className='header__email'>{userData.email}</p>
-        <Link className='header__auth-link header__auth-link_type_gray' to='/signin' onClick={handleLogOut} >Выйти</Link>
+        {/* <input id="header__hamburger-menu" className="header__hamburger-menu" type="checkBox" />
+        <label htmlFor='header__hamburger-menu' className="header__hamburger-icon" /> */}
+
+        {/* <div className='header__container'> */}
+          <p className='header__email'>{userData.email}</p>
+          <Link className='header__auth-link header__auth-link_type_gray' to='/signin' onClick={handleLogOut} >Выйти</Link>
+        {/* </div> */}
       </Route>
     </header>
   );
