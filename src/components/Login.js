@@ -23,11 +23,11 @@ function Login({ handleLogin }) {
       <h2 className="form__title">Вход</h2>
       <label className="form__field">
         <input className="form__input" type="email" placeholder="Email" name="email" onChange={handleChange}
-          value={data.email} />
+          value={data.email} required/>
       </label>
       <label className="form__field">
         <input className="form__input" type="password" placeholder="Пароль" name="password" onChange={handleChange}
-          value={data.password} />
+          value={data.password} required/>
       </label>
       <button className="form__button" type="submit">Войти</button>
     </form>
