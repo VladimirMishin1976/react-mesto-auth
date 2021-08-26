@@ -19,4 +19,4 @@
 Работа с github.
 
 ## Ссылка
-https://vladimirmishin1976.github.io/react-mesto-auth/
+https://vladimirmishin1976.github.io/
